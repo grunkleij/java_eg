@@ -1,42 +1,45 @@
 import java.io.*;
 
-class Demo implements Serializable{
+class Demo implements Serializable {
     public int a;
     public String b;
 
-    public Demo(int a, String b){
+    public Demo(int a, String b) {
         this.a = a;
-        this.b  = b;
+        this.b = b;
     }
 }
 
 public class Serialisation {
-    public static void main(String[] args){
+    public static void main(String[] args) throws FileNotFoundException {
         try {
-            
-            Demo obj = new Demo(1,"hello");
-            FileOutputStream file = new FileOutputStream("file.ser");
+
+            Demo object = new Demo(1, "hello");
+
+            FileOutputStream file = new FileOutputStream("blah.ser");
             ObjectOutputStream out = new ObjectOutputStream(file);
-            out.writeObject(obj);
-            out.close();
+            out.writeObject(object);
             file.close();
+            out.close();
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
         }
 
         try {
-            FileInputStream file = new FileInputStream("file.ser");
+            FileInputStream file = new FileInputStream("blah.ser");
             ObjectInputStream in = new ObjectInputStream(file);
-            Demo blah  = (Demo)in.readObject();
-            System.out.println("no "+blah.a);
-            System.out.println("name "+blah.b);
+
+            Demo object1 = (Demo) in.readObject();
+            System.out.println("Number: "+object1.a+" String: "+object1.b);
             file.close();
             in.close();
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+
+            e.printStackTrace();
         }
-        catch( ClassNotFoundException e){
-            System.out.println(e.getMessage());
+        catch(ClassNotFoundException e){
+            e.printStackTrace();
         }
+
     }
 }

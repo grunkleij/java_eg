@@ -4,14 +4,19 @@ import java.io.*;
 public class UDPServer {
 
     public static void main(String[] args) throws SocketException, IOException{
-        DatagramSocket s = new DatagramSocket(5000);
-        byte [] buffer = new byte[2024];
+        DatagramSocket ds = new DatagramSocket(5001);
+        
+        byte[] buffer = new byte[2046];
+
         DatagramPacket dp = new DatagramPacket(buffer, buffer.length);
-        while(true){
-            s.receive(dp);
-            System.out.println("Recieved: "+new String(dp.getData()));
-            s.send(dp);
-        }
+        ds.receive(dp);
+
+        System.out.println("Client"+ new String(dp.getData()));
+        
+        String msg = "Blha";
+        byte[] buffer2 = msg.getBytes();
+
+        // DatagramPacket dp2 = new DatagramPacket(buffer2, buffer2.length, )
 
 
     }    

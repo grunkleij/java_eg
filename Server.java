@@ -5,17 +5,17 @@ import java.net.*;
 
 public class Server{
     public static void main(String[] args) throws IOException{
-        ServerSocket ss = new ServerSocket(5000);
-        Socket s = ss.accept();
+      ServerSocket ss = new ServerSocket(5001);
+      Socket s = ss.accept();
+      System.out.println("Connected");
 
-        System.out.println("Connected");
+      BufferedReader in = new BufferedReader(new InputStreamReader(s.getInputStream()));
+      PrintWriter out = new PrintWriter(s.getOutputStream(), true);
 
-        BufferedReader input = new BufferedReader( new InputStreamReader(s.getInputStream()));
-        PrintWriter output = new PrintWriter( s.getOutputStream(), true);
-
-        String msg = input.readLine();
-
-        System.out.println(msg);
-        output.println("hello");
+      String msg = in.readLine();
+      System.out.println("Client: "+msg);
+      out.println("Hello");
+      ss.close();
+      s.close();
     }
 }
